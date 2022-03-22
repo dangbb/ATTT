@@ -37,6 +37,8 @@ def gcdExtend(xe, ye, xmod, ymod, e, mod, modulo, gcdd):
 
 
 def invModulo(e, mod):
+    if e == 1:
+        return 1, 0
     x1, x2 = gcdExtend(1, 0, 0, 1, e, mod, mod, gcd(e, mod))
-    print("Check if e^-1 x e == 1 mod: ", x1 * e - ((x1 * e) // mod) * mod)
+    assert x1 * e - ((x1 * e) // mod) * mod == 1, "Inverse Module, result is not inverse."
     return x1, x2
