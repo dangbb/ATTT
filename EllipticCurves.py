@@ -168,7 +168,7 @@ class ellipticCurves:
         """
         B = self.mulFaster(P, s)
 
-        print("Start encode")
+        print("Start ElGamal encode")
         print("Plaintext point: ", plaintext_point)
         print("B Private key: ", s)
         print("B Value: ", B)
@@ -183,17 +183,41 @@ class ellipticCurves:
         print("Start decode")
         M = self.ElGamal_decode(s, M1, M2)
         print("Decoded Value: ", M)
-        print("Decoded Complete!")
+        print("Decoded ElGamal Complete!")
 
-    def 
+    def Massey_Omura(self, n, M, mA, mB):
+        """
+        Massey Omura cryptosystem
+        :param n: Number of points in Elliptic Curve
+        :param M: Plaintext message
+        :param mA: private key from A
+        :param mB: private key from B
+        :return:
+        """
+
+        assert gcd(mA, n) == 1, "Invalid value of mA. gcd(mA, n) != 1"
+        assert gcd(mB, n) == 1, "Invalid value of mB. gcd(mB, n) != 1"
+
+        M1 = self.mulFaster(M, mA)
+        M2 = self.mulFaster(M1, mB)
+        M3 = self.mulFaster(M2, invModulo(mA, n)[0])
+        M4 = self.mulFaster(M3, invModulo(mB, n)[0])
+
+        print("Value of M1: ", M1)
+        print("Value of M2: ", M2)
+        print("Value of M3: ", M3)
+        print("Value of M4: ", M4)
+        print("Check if value of M4 is identical to M:", M4 == M)
+
 
 try:
     # curve = ellipticCurves(1, 1, 14734520141266665763, False)
 
     # curve.ElGamal_encode_and_decode((3683630035316666441, 5525445052974999660), 947, (72, 611), 97742)
-    curve = ellipticCurves(2, 2, 17, False)
+    curve = ellipticCurves(1, 1, 223, False)
+    # curve.findAllPoint()
 
-    curve.ElGamal_encode_and_decode((7, 11), 6, (9, 16), 9)
+    curve.Massey_Omura(244, (3, 37), 179, 7)
 
     # print(curve.isInCurve((217, 606)))
 
