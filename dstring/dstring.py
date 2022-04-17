@@ -14,3 +14,6 @@ def int2string(v):
         res = chr(v % 26 + ord('A')) + res
         v = v // 26
     return res
+
+
+# print(string2int("DU"))

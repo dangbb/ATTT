@@ -40,9 +40,8 @@ def testPrimitive(r, limit = -1):
         i += 1
 
     for alpha in range(2, r):
-        print ("Test: ", alpha)
         isOK = True
-        for i in tqdm.tqdm(enumerate(index)):
+        for _, i in tqdm.tqdm(enumerate(index)):
             if (r - 1) % i == 0:
                 if mu(alpha, (r - 1) / i, r) == 1:
                     isOK = False
@@ -56,14 +55,12 @@ def testPrimitive(r, limit = -1):
 
 
 def testPrimitive2(r, limit = -1):
-    index = [2, 5, 13, 43, 1087, 12277, 338137]
-
+    index = [2, (r - 1) // 2]
     for alpha in range(2, r):
-        print ("Test: ", alpha)
         isOK = True
         for i in index:
             if (r - 1) % i == 0:
-                if mu(alpha, (r - 1) / i, r) == 1:
+                if mu(alpha, (r - 1) // i, r) == 1:
                     isOK = False
                     break
         if isOK:
@@ -73,5 +70,6 @@ def testPrimitive2(r, limit = -1):
             if limit == 0:
                 break
 
+# TODO: kiểm tra tính nguyên thủy bằng tìm ước.
 
-testPrimitive2(10089886811898868001, 1)
+testPrimitive2(29072553456409183479268752003825253455672839222789445223234915115682921921621182714164684048719891059149763352939888629001652768286998932224000980861127751097886364432307005283784155195197202827350411, 1)
